@@ -1,8 +1,9 @@
 import React from 'react';
 
 import CharacterCard from './MarvelCard';
-import GetCharacterData from './../services/GetCharacterData';
+import GetCharacterData from '../services/GetData';
 import Base from './Base';
+import Loading from './Loading';
 
 class Characters extends React.Component {
   constructor() {
@@ -32,7 +33,7 @@ class Characters extends React.Component {
                   <CharacterCard key={character.id} character={character} />
                 ))
               ) : (
-                <h3>Loading...</h3>
+                <Loading />
               )}
             </div>
           </div>

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const GetCharacterData = (data) => {
+const GetData = (data) => {
   let URL = `https://gateway.marvel.com/v1/public/${data}?ts=1&apikey=957f3e2ab0da2e77b9ef76d8c3550706&hash=492211148eb06fc7144c685e346da6b4`;
 
   return axios.get(URL);
 };
 
-export default GetCharacterData;
+export default GetData;
