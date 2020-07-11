@@ -3,7 +3,6 @@ import React from 'react';
 import GetCharacterData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
-import { Link } from 'react-router-dom';
 
 class Characters extends React.Component {
   constructor() {

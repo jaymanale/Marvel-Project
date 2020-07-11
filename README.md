@@ -7,7 +7,7 @@
   <img alt="Github: JayManale" src="https://img.shields.io/github/last-commit/jaymanale/Marvel-Project" />
 </p>
 
-> Simple TODO App with all CRUD operation using React and :fire: Firebase
+> Simple application where you can finr Marvel universe details such as Characters, Stories, Comics etc. Build with ReactJs
 
 ### ✨ [Demo](https://marvel-universe.netlify.app/)
 
