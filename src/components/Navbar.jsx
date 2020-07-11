@@ -15,6 +15,11 @@ const Navbar = () => {
             Characters
           </Link>
         </li>
+        <li className="nav item">
+          <Link className="nav-link text-white" to="/comics">
+            Comics
+          </Link>
+        </li>
 
         <li className="nav item">
           <Link className="nav-link text-white" to="/events">
