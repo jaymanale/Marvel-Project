@@ -13,7 +13,7 @@ class Characters extends React.Component {
   }
 
   async componentDidMount() {
-    const response = await GetCharacterData();
+    const response = await GetCharacterData('characters');
     const characters = response.data.data.results;
     console.log(response);
     this.setState({ characters });
