@@ -1,26 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      Navbar
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">Home</li>
-          <li className="nav-item">Link</li>
-        </ul>
-      </div>
+    <nav className=" navbar navbar navbar-light bg-primary">
+      <ul className="nav">
+        <li className="nav item">
+          <Link className="nav-link text-white" to="/">
+            Home
+          </Link>
+        </li>
+        <li className="nav item">
+          <Link className="nav-link text-white" to="/characters">
+            Characters
+          </Link>
+        </li>
+
+        <li className="nav item">
+          <Link className="nav-link text-white" to="/events">
+            Events
+          </Link>
+        </li>
+
+        <li className="nav item">
+          <Link className="nav-link text-white" to="/series">
+            Series
+          </Link>
+        </li>
+
+        <li className="nav item text-white">
+          <Link className="nav-link" to="/stories">
+            Stories
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };
