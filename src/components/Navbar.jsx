@@ -1,49 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './../App.css';
 
 const Navbar = () => {
+  let navbar = [
+    { to: '/characters', title: 'Characters' },
+    { to: '/comics', title: 'Comics' },
+    { to: '/events', title: 'Events' },
+    { to: '/series', title: 'Series' },
+    { to: '/stories', title: 'Stories' },
+    { to: '/creators', title: 'Creators' },
+  ];
+
   return (
     <React.Fragment>
-      <div className="text-center text-white ">
-        <p
+      <div className="container text-center">
+        <div
           className="text-uppercase font-weight-bolder mb-1"
           style={{ fontSize: '30px' }}
         >
-          Marvel
-        </p>
-        <p>
-          <span className="mx-1">
-            <Link className=" text-white " to="/characters">
-              Characters
-            </Link>
-          </span>
-          <span className="mx-1">
-            <Link className="text-white" to="/comics">
-              Comics
-            </Link>
-          </span>
-          <span className="mx-1">
-            <Link className=" text-white" to="/events">
-              Events
-            </Link>
-          </span>
-          <span className="mx-1">
-            <Link className=" text-white" to="/series">
-              Series
-            </Link>
-          </span>
-          <span className="mx-1">
-            <Link className=" text-white" to="/stories">
-              Stories
-            </Link>
-          </span>
-          <span className="mx-1">
-            <Link className=" text-white" to="/creators">
-              Creators
-            </Link>
-          </span>
-        </p>
+          <Link className=" text-white " to="/">
+            Marvel
+          </Link>
+        </div>
+        <div className="row">
+          {navbar.map((nav) => (
+            <span className="mx-auto">
+              <Link className=" text-white " to={nav.to}>
+                {nav.title}
+              </Link>
+            </span>
+          ))}
+        </div>
       </div>
     </React.Fragment>
   );
