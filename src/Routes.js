@@ -15,8 +15,12 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Home}></Route>
+        <Route
+          path="/characters/:id"
+          render={(props) => <CharacterInfo {...props} />}
+        ></Route>
         <Route path="/characters" exact component={Characters}></Route>
-        <Route path="/characters/:id" exact component={CharacterInfo}></Route>
+
         <Route path="/comics" exact component={Comics}></Route>
         <Route path="/events" exact component={Events}></Route>
         <Route path="/series" exact component={Series}></Route>

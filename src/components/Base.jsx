@@ -6,7 +6,8 @@ const Base = ({ children }) => {
   return (
     <React.Fragment>
       <Navbar />
-      <div> {children}</div>
+      <hr className="mt-0 mb-0" />
+      <div className="mt-3"> {children}</div>
       <Footer />
     </React.Fragment>
   );

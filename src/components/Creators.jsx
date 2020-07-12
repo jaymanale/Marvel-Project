@@ -29,7 +29,7 @@ class Creators extends React.Component {
             <div className="row">
               {creators.length ? (
                 creators.map((creator) => (
-                  <div key={creator.id} className="col-sm-12 col-md-5 m-auto">
+                  <div key={creator.id} className="col-sm-12 col-md-3 m-auto">
                     <CreatorsCard {...creator} />
                   </div>
                 ))

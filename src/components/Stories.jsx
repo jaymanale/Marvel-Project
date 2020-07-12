@@ -3,6 +3,7 @@ import React from 'react';
 import GetstoriesData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
+import MarvelCard from './MarvelCard';
 
 class Stories extends React.Component {
   constructor() {
@@ -29,8 +30,8 @@ class Stories extends React.Component {
             <div className="row">
               {stories.length ? (
                 stories.map((story) => (
-                  <div key={story.id} className="col-sm-12 col-md-5 m-auto">
-                    <StoriesCard {...story} />
+                  <div key={story.id} className="col-sm-12 col-md-3 m-auto">
+                    <MarvelCard {...story} />
                   </div>
                 ))
               ) : (
@@ -43,15 +44,5 @@ class Stories extends React.Component {
     );
   }
 }
-
-const StoriesCard = ({ title, thumbnail }) => {
-  return (
-    <div className="card text-center cardStyle my-4">
-      <div className="card-body">
-        <h5 className="card-title font-weight-bold">{title}</h5>
-      </div>
-    </div>
-  );
-};
 
 export default Stories;

@@ -3,6 +3,7 @@ import React from 'react';
 import GetEventsData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
+import MarvelCard from './MarvelCard';
 
 class Events extends React.Component {
   constructor() {
@@ -29,8 +30,8 @@ class Events extends React.Component {
             <div className="row">
               {events.length ? (
                 events.map((event) => (
-                  <div key={event.id} className="col-sm-12 col-md-5 m-auto">
-                    <EventsCard {...event} />
+                  <div key={event.id} className="col-sm-12 col-md-3 m-auto">
+                    <MarvelCard {...event} />
                   </div>
                 ))
               ) : (
@@ -43,22 +44,5 @@ class Events extends React.Component {
     );
   }
 }
-
-const EventsCard = ({ title, thumbnail }) => {
-  return (
-    <div className="card text-center cardStyle my-4">
-      <div className="card-body">
-        <div className="m-2">
-          <img
-            src={thumbnail.path + '.' + thumbnail.extension}
-            className="card-img-top img-float"
-            alt={title}
-          />
-        </div>
-        <h5 className="card-title font-weight-bold">{title}</h5>
-      </div>
-    </div>
-  );
-};
 
 export default Events;

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './../App.css';
 
 const Navbar = () => {
   return (
-    <nav className=" navbar navbar navbar-light bg-danger">
+    <nav className=" navbar navbar navbar-light backgroungColorGradiant">
       <ul className="nav">
         <li className="nav item">
           <Link
