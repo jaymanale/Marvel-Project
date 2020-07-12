@@ -4,51 +4,48 @@ import './../App.css';
 
 const Navbar = () => {
   return (
-    <nav className=" navbar navbar navbar-light backgroungColorGradiant">
-      <ul className="nav">
-        <li className="nav item">
-          <Link
-            className="nav-link text-white text-uppercase font-weight-bolder"
-            to="/"
-          >
-            Marvel
-          </Link>
-        </li>
-        <li className="nav item">
-          <Link className="nav-link text-white" to="/characters">
-            Characters
-          </Link>
-        </li>
-        <li className="nav item">
-          <Link className="nav-link text-white" to="/comics">
-            Comics
-          </Link>
-        </li>
-
-        <li className="nav item">
-          <Link className="nav-link text-white" to="/events">
-            Events
-          </Link>
-        </li>
-
-        <li className="nav item">
-          <Link className="nav-link text-white" to="/series">
-            Series
-          </Link>
-        </li>
-
-        <li className="nav item ">
-          <Link className="nav-link text-white" to="/stories">
-            Stories
-          </Link>
-        </li>
-        <li className="nav item ">
-          <Link className="nav-link text-white" to="/creators">
-            Creators
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <React.Fragment>
+      <div className="text-center text-white ">
+        <p
+          className="text-uppercase font-weight-bolder mb-1"
+          style={{ fontSize: '30px' }}
+        >
+          Marvel
+        </p>
+        <p>
+          <span className="mx-1">
+            <Link className=" text-white " to="/characters">
+              Characters
+            </Link>
+          </span>
+          <span className="mx-1">
+            <Link className="text-white" to="/comics">
+              Comics
+            </Link>
+          </span>
+          <span className="mx-1">
+            <Link className=" text-white" to="/events">
+              Events
+            </Link>
+          </span>
+          <span className="mx-1">
+            <Link className=" text-white" to="/series">
+              Series
+            </Link>
+          </span>
+          <span className="mx-1">
+            <Link className=" text-white" to="/stories">
+              Stories
+            </Link>
+          </span>
+          <span className="mx-1">
+            <Link className=" text-white" to="/creators">
+              Creators
+            </Link>
+          </span>
+        </p>
+      </div>
+    </React.Fragment>
   );
 };
 
