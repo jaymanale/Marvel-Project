@@ -10,6 +10,7 @@ class Characters extends React.Component {
     super();
     this.state = {
       characters: [],
+      search: '',
     };
   }
 
@@ -24,9 +25,26 @@ class Characters extends React.Component {
   }
 
   showAllCharacter(characters) {
+    characters = characters.filter((character) => {
+      return (
+        character.name
+          .toLowerCase()
+          .indexOf(this.state.search.toLowerCase()) !== -1
+      );
+    });
+
     return (
       <div className="container-fluid">
         <div className="row">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              placeholder="Search Characters"
+              className="form-control"
+              aria-label="search character"
+              onChange={(e) => this.handleCharacterSearch(e)}
+            />
+          </div>
           {characters.length ? (
             characters.map((character) => (
               <div className="col-sm-12 col-md-3 m-auto" key={character.id}>
@@ -46,6 +64,11 @@ class Characters extends React.Component {
         </div>
       </div>
     );
+  }
+
+  handleCharacterSearch(event) {
+    console.log(event.target.value);
+    this.setState({ search: event.target.value });
   }
 
   render() {

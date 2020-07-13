@@ -24,7 +24,7 @@ const Navbar = () => {
         </div>
         <div className="row">
           {navbar.map((nav) => (
-            <span className="mx-auto">
+            <span key={nav.to} className="mx-auto">
               <Link className=" text-white " to={nav.to}>
                 {nav.title}
               </Link>
