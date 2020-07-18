@@ -1,25 +1,40 @@
 import React from 'react';
 
-import GetEventsData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
 import MarvelCard from './MarvelCard';
+import { getData } from './../common/GetData';
+import LoadMore from './LoadMore';
 
 class Events extends React.Component {
   constructor() {
     super();
     this.state = {
       events: [],
+      type: 'events',
+      pageOffset: 0,
+      orderBy: 'name',
     };
   }
 
-  async componentDidMount() {
-    const response = await GetEventsData('events');
-    const events = response.data.data.results;
-    console.log(events);
-    this.setState({ events });
+  componentDidMount() {
+    this.loadData();
   }
+  async loadData() {
+    const { events } = this.state;
+    const newEvents = await getData(this.state);
+    this.setState({ events: [...events, ...newEvents] });
+  }
+  handleLoadMore() {
+    const { pageOffset } = this.state;
 
+    this.setState(
+      () => ({
+        pageOffset: pageOffset + 10,
+      }),
+      this.loadData
+    );
+  }
   render() {
     let { events } = this.state;
 
@@ -38,6 +53,9 @@ class Events extends React.Component {
                 <Loading />
               )}
             </div>
+            {events.length && (
+              <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+            )}
           </div>
         </Base>
       </React.Fragment>

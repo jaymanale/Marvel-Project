@@ -1,23 +1,40 @@
 import React from 'react';
 
-import GetSeriesData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
 import MarvelCard from './MarvelCard';
+import { getData } from './../common/GetData';
+import LoadMore from './LoadMore';
 
 class Series extends React.Component {
   constructor() {
     super();
     this.state = {
       series: [],
+      type: 'series',
+      pageOffset: 0,
+      orderBy: 'title',
     };
   }
 
-  async componentDidMount() {
-    const response = await GetSeriesData('series');
-    const series = response.data.data.results;
-    console.log(series);
-    this.setState({ series });
+  componentDidMount() {
+    this.loadData();
+  }
+
+  async loadData() {
+    const { series } = this.state;
+    const newSeries = await getData(this.state);
+    this.setState({ series: [...series, ...newSeries] });
+  }
+  handleLoadMore() {
+    const { pageOffset } = this.state;
+
+    this.setState(
+      () => ({
+        pageOffset: pageOffset + 10,
+      }),
+      this.loadData
+    );
   }
 
   render() {
@@ -38,6 +55,9 @@ class Series extends React.Component {
                 <Loading />
               )}
             </div>
+            {series.length && (
+              <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+            )}
           </div>
         </Base>
       </React.Fragment>

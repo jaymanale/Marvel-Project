@@ -1,23 +1,40 @@
 import React from 'react';
 
-import GetstoriesData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
 import MarvelCard from './MarvelCard';
+import { getData } from './../common/GetData';
+import LoadMore from './LoadMore';
 
 class Stories extends React.Component {
   constructor() {
     super();
     this.state = {
       stories: [],
+      type: 'stories',
+      pageOffset: 0,
+      orderBy: 'id',
     };
   }
 
   async componentDidMount() {
-    const response = await GetstoriesData('stories');
-    const stories = response.data.data.results;
-    console.log(stories);
-    this.setState({ stories });
+    this.loadData();
+  }
+
+  async loadData() {
+    const { stories } = this.state;
+    const newStories = await getData(this.state);
+    this.setState({ stories: [...stories, ...newStories] });
+  }
+  handleLoadMore() {
+    const { pageOffset } = this.state;
+
+    this.setState(
+      () => ({
+        pageOffset: pageOffset + 10,
+      }),
+      this.loadData
+    );
   }
 
   render() {
@@ -38,6 +55,9 @@ class Stories extends React.Component {
                 <Loading />
               )}
             </div>
+            {stories.length && (
+              <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+            )}
           </div>
         </Base>
       </React.Fragment>

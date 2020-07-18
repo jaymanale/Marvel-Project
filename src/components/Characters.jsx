@@ -1,30 +1,51 @@
 import React from 'react';
 
-import GetCharacterData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
 import { Link } from 'react-router-dom';
+import LoadMore from './LoadMore';
+import { getData } from './../common/GetData';
 
 class Characters extends React.Component {
   constructor() {
     super();
     this.state = {
+      type: 'characters',
       characters: [],
       search: '',
+      pageOffset: 0,
+      orderBy: 'name',
     };
   }
 
-  async componentDidMount() {
-    const response = await GetCharacterData('characters');
-    const characters = response.data.data.results;
-    console.log(characters);
-    this.setState({ characters });
-  }
-  handleCharacter(characterId) {
-    console.log('character ID:', characterId);
+  componentDidMount() {
+    this.loadData();
   }
 
-  showAllCharacter(characters) {
+  async loadData() {
+    const { characters } = this.state;
+    const newCharacters = await getData(this.state);
+    this.setState({ characters: [...characters, ...newCharacters] });
+    console.log('State:', this.state);
+  }
+
+  handleCharacterSearch(event) {
+    console.log(event.target.value);
+    this.setState({ search: event.target.value });
+  }
+
+  handleLoadMore() {
+    const { pageOffset } = this.state;
+
+    this.setState(
+      () => ({
+        pageOffset: pageOffset + 10,
+      }),
+      this.loadData
+    );
+  }
+
+  showAllCharacter({ characters }) {
     characters = characters.filter((character) => {
       return (
         character.name
@@ -45,6 +66,7 @@ class Characters extends React.Component {
               onChange={(e) => this.handleCharacterSearch(e)}
             />
           </div>
+
           {characters.length ? (
             characters.map((character) => (
               <div className="col-sm-12 col-md-3 m-auto" key={character.id}>
@@ -62,21 +84,18 @@ class Characters extends React.Component {
             <Loading />
           )}
         </div>
+
+        {characters.length && (
+          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        )}
       </div>
     );
   }
 
-  handleCharacterSearch(event) {
-    console.log(event.target.value);
-    this.setState({ search: event.target.value });
-  }
-
   render() {
-    let { characters } = this.state;
-
     return (
       <React.Fragment>
-        <Base>{this.showAllCharacter(characters)}</Base>
+        <Base>{this.showAllCharacter({ ...this.state })}</Base>
       </React.Fragment>
     );
   }
@@ -93,7 +112,7 @@ const CharacterCard = ({ name, thumbnail }) => {
             alt={name}
           />
         </div>
-        <h5 className="card-title font-weight-bold">{name}</h5>
+        <h5 className="card-title font-weight-bold text-dark">{name}</h5>
       </div>
     </div>
   );

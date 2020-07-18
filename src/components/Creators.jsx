@@ -1,22 +1,40 @@
 import React from 'react';
 
-import GetCreatorsData from '../services/GetData';
 import Base from './Base';
 import Loading from './Loading';
+import { getData } from './../common/GetData';
+import LoadMore from './LoadMore';
 
 class Creators extends React.Component {
   constructor() {
     super();
     this.state = {
       creators: [],
+      type: 'creators',
+      pageOffset: 0,
+      orderBy: 'firstName',
     };
   }
 
-  async componentDidMount() {
-    const response = await GetCreatorsData('creators');
-    const creators = response.data.data.results;
-    console.log(creators);
-    this.setState({ creators });
+  componentDidMount() {
+    this.loadData();
+  }
+
+  async loadData() {
+    const { creators } = this.state;
+    const newCreators = await getData(this.state);
+    this.setState({ creators: [...creators, ...newCreators] });
+  }
+
+  handleLoadMore() {
+    const { pageOffset } = this.state;
+
+    this.setState(
+      () => ({
+        pageOffset: pageOffset + 10,
+      }),
+      this.loadData
+    );
   }
 
   render() {
@@ -37,6 +55,9 @@ class Creators extends React.Component {
                 <Loading />
               )}
             </div>
+            {creators.length && (
+              <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+            )}
           </div>
         </Base>
       </React.Fragment>
