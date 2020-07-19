@@ -4,7 +4,8 @@ import Base from './Base';
 import Loading from './Loading';
 import { Link } from 'react-router-dom';
 import LoadMore from './LoadMore';
-import { getData } from './../common/GetData';
+import getData from './../services/GetData';
+import MarvelCard from './MarvelCard';
 
 class Characters extends React.Component {
   constructor() {
@@ -76,7 +77,9 @@ class Characters extends React.Component {
                     state: character,
                   }}
                 >
-                  <CharacterCard {...character} />
+                  <MarvelCard
+                    cardData={{ ...character, title: character.name }}
+                  />
                 </Link>
               </div>
             ))
@@ -100,22 +103,5 @@ class Characters extends React.Component {
     );
   }
 }
-
-const CharacterCard = ({ name, thumbnail }) => {
-  return (
-    <div className="card text-center my-1">
-      <div className="card-body">
-        <div className="m-2">
-          <img
-            src={thumbnail.path + '.' + thumbnail.extension}
-            className="card-img-top img-fluid"
-            alt={name}
-          />
-        </div>
-        <h5 className="card-title font-weight-bold text-dark">{name}</h5>
-      </div>
-    </div>
-  );
-};
 
 export default Characters;

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const MarvelCard = ({ title, thumbnail }) => {
+const MarvelCard = (props) => {
+  const { title, thumbnail } = props.cardData;
   return (
     <div className="card text-center my-1">
       <div className="card-body">

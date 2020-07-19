@@ -3,7 +3,7 @@ import React from 'react';
 import Base from './Base';
 import Loading from './Loading';
 import MarvelCard from './MarvelCard';
-import { getData } from './../common/GetData';
+import getData from './../services/GetData';
 import LoadMore from './LoadMore';
 
 class Events extends React.Component {
@@ -46,7 +46,7 @@ class Events extends React.Component {
               {events.length ? (
                 events.map((event) => (
                   <div key={event.id} className="col-sm-12 col-md-3 m-auto">
-                    <MarvelCard {...event} />
+                    <MarvelCard cardData={{ ...event }} />
                   </div>
                 ))
               ) : (

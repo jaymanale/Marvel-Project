@@ -4,7 +4,7 @@ import Base from './Base';
 import Loading from './Loading';
 import MarvelCard from './MarvelCard';
 import LoadMore from './LoadMore';
-import { getData } from './../common/GetData';
+import getData from './../services/GetData';
 
 class Comics extends React.Component {
   constructor() {
@@ -49,7 +49,7 @@ class Comics extends React.Component {
               {comics.length ? (
                 comics.map((comic) => (
                   <div key={comic.id} className="col-sm-12 col-md-3 m-auto">
-                    <MarvelCard {...comic} />
+                    <MarvelCard cardData={{ ...comic }} />
                   </div>
                 ))
               ) : (
