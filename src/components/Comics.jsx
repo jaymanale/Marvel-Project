@@ -44,6 +44,9 @@ class Comics extends React.Component {
   handleCharacterSearch(event) {
     this.setState({ search: event.target.value });
   }
+  handleClearInputText() {
+    this.setState({ search: '' });
+  }
 
   showAllComics({ comics, search, type }) {
     comics = getFilterData(comics, 'title', search);
@@ -53,7 +56,9 @@ class Comics extends React.Component {
           {comics.length && (
             <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
               <SearchInput
+                inputValue={search}
                 onSearchInput={(e) => this.handleCharacterSearch(e)}
+                onClearText={() => this.handleClearInputText()}
                 searchOf={type}
               />
             </div>

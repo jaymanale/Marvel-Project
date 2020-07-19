@@ -43,6 +43,10 @@ class Series extends React.Component {
     this.setState({ search: event.target.value });
   }
 
+  handleClearInputText() {
+    this.setState({ search: '' });
+  }
+
   showAllSeries({ series, search, type }) {
     series = getFilterData(series, 'title', search);
 
@@ -52,7 +56,9 @@ class Series extends React.Component {
           {series.length && (
             <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
               <SearchInput
+                inputValue={search}
                 onSearchInput={(e) => this.handleCharacterSearch(e)}
+                onClearText={() => this.handleClearInputText()}
                 searchOf={type}
               />
             </div>
