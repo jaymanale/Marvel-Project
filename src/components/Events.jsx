@@ -7,6 +7,7 @@ import getData from './../services/GetData';
 import LoadMore from './LoadMore';
 import SearchInput from './../common/SearchInput';
 import { getFilterData } from './../common/HelperFunctions';
+import NoResultFound from './../common/NoResultFound';
 
 class Events extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Events extends React.Component {
       pageOffset: 0,
       orderBy: 'name',
       search: '',
+      loading: true,
     };
   }
 
@@ -26,7 +28,7 @@ class Events extends React.Component {
   async loadData() {
     const { events } = this.state;
     const newEvents = await getData(this.state);
-    this.setState({ events: [...events, ...newEvents] });
+    this.setState({ events: [...events, ...newEvents], loading: false });
   }
   handleLoadMore() {
     const { pageOffset } = this.state;
@@ -46,35 +48,37 @@ class Events extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllComics({ events, search, type }) {
+  showAllComics({ events, search, type, loading }) {
     events = getFilterData(events, 'title', search);
 
     return (
       <div className="container-fluid">
         <div className="row">
-          {events.length && (
-            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
-              <SearchInput
-                inputValue={search}
-                onSearchInput={(e) => this.handleCharacterSearch(e)}
-                onClearText={() => this.handleClearInputText()}
-                searchOf={type}
-              />
-            </div>
-          )}
-          {events.length ? (
-            events.map((event) => (
-              <div key={event.id} className="col-sm-12 col-md-3 m-auto">
-                <MarvelCard cardData={{ ...event }} />
-              </div>
-            ))
-          ) : (
-            <Loading />
-          )}
+          <SearchInput
+            inputValue={search}
+            onSearchInput={(e) => this.handleCharacterSearch(e)}
+            onClearText={() => this.handleClearInputText()}
+            searchOf={type}
+          />
+
+          {events.length
+            ? events.map((event) => (
+                <div key={event.id} className="col-sm-12 col-md-3 m-auto">
+                  <MarvelCard cardData={{ ...event }} />
+                </div>
+              ))
+            : ''}
         </div>
-        {events.length && (
+
+        {!events.length && loading === false && <NoResultFound type={type} />}
+
+        {events.length ? (
           <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        ) : (
+          ''
         )}
+
+        {loading && <Loading />}
       </div>
     );
   }

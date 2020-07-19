@@ -7,6 +7,7 @@ import LoadMore from './LoadMore';
 import getData from './../services/GetData';
 import SearchInput from './../common/SearchInput';
 import { getFilterData } from './../common/HelperFunctions';
+import NoResultFound from './../common/NoResultFound';
 
 class Comics extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Comics extends React.Component {
       pageOffset: 0,
       orderBy: 'title',
       search: '',
+      loading: true,
     };
   }
 
@@ -27,7 +29,7 @@ class Comics extends React.Component {
   async loadData() {
     const { comics } = this.state;
     const newComics = await getData(this.state);
-    this.setState({ comics: [...comics, ...newComics] });
+    this.setState({ comics: [...comics, ...newComics], loading: false });
   }
 
   handleLoadMore() {
@@ -48,34 +50,36 @@ class Comics extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllComics({ comics, search, type }) {
+  showAllComics({ comics, search, type, loading }) {
     comics = getFilterData(comics, 'title', search);
     return (
       <div className="container-fluid">
         <div className="row">
-          {comics.length && (
-            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
-              <SearchInput
-                inputValue={search}
-                onSearchInput={(e) => this.handleCharacterSearch(e)}
-                onClearText={() => this.handleClearInputText()}
-                searchOf={type}
-              />
-            </div>
-          )}
-          {comics.length ? (
-            comics.map((comic) => (
-              <div key={comic.id} className="col-sm-12 col-md-3 m-auto">
-                <MarvelCard cardData={{ ...comic }} />
-              </div>
-            ))
-          ) : (
-            <Loading />
-          )}
+          <SearchInput
+            inputValue={search}
+            onSearchInput={(e) => this.handleCharacterSearch(e)}
+            onClearText={() => this.handleClearInputText()}
+            searchOf={type}
+          />
+
+          {comics.length
+            ? comics.map((comic) => (
+                <div key={comic.id} className="col-sm-12 col-md-3 m-auto">
+                  <MarvelCard cardData={{ ...comic }} />
+                </div>
+              ))
+            : ''}
         </div>
-        {comics.length && (
+
+        {!comics.length && loading === false && <NoResultFound type={type} />}
+
+        {comics.length ? (
           <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        ) : (
+          ''
         )}
+
+        {loading && <Loading />}
       </div>
     );
   }

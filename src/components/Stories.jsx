@@ -7,6 +7,7 @@ import getData from './../services/GetData';
 import LoadMore from './LoadMore';
 import { getFilterData } from './../common/HelperFunctions';
 import SearchInput from './../common/SearchInput';
+import NoResultFound from './../common/NoResultFound';
 
 class Stories extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Stories extends React.Component {
       pageOffset: 0,
       orderBy: 'id',
       search: '',
+      loading: true,
     };
   }
 
@@ -27,7 +29,7 @@ class Stories extends React.Component {
   async loadData() {
     const { stories } = this.state;
     const newStories = await getData(this.state);
-    this.setState({ stories: [...stories, ...newStories] });
+    this.setState({ stories: [...stories, ...newStories], loading: false });
   }
   handleLoadMore() {
     const { pageOffset } = this.state;
@@ -46,34 +48,35 @@ class Stories extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllStories({ stories, search, type }) {
+  showAllStories({ stories, search, type, loading }) {
     stories = getFilterData(stories, 'title', search);
     return (
       <div className="container-fluid">
         <div className="row">
-          {stories.length && (
-            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
-              <SearchInput
-                inputValue={search}
-                onClearText={() => this.handleClearInputText()}
-                onSearchInput={(e) => this.handleCharacterSearch(e)}
-                searchOf={type}
-              />
-            </div>
-          )}
-          {stories.length ? (
-            stories.map((story) => (
-              <div key={story.id} className="col-sm-12 col-md-3 m-auto">
-                <MarvelCard cardData={{ ...story }} />
-              </div>
-            ))
-          ) : (
-            <Loading />
-          )}
+          <SearchInput
+            inputValue={search}
+            onClearText={() => this.handleClearInputText()}
+            onSearchInput={(e) => this.handleCharacterSearch(e)}
+            searchOf={type}
+          />
+
+          {stories.length
+            ? stories.map((story) => (
+                <div key={story.id} className="col-sm-12 col-md-3 m-auto">
+                  <MarvelCard cardData={{ ...story }} />
+                </div>
+              ))
+            : ''}
         </div>
-        {stories.length && (
+        {!stories.length && loading === false && <NoResultFound type={type} />}
+
+        {stories.length ? (
           <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        ) : (
+          ''
         )}
+
+        {loading && <Loading />}
       </div>
     );
   }

@@ -4,7 +4,7 @@ const SearchInput = ({ inputValue, onSearchInput, onClearText, searchOf }) => {
   const placeHolder = `Search ${searchOf}`;
   return (
     <React.Fragment>
-      <div className="input-group">
+      <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
         <input
           type="text"
           value={inputValue}

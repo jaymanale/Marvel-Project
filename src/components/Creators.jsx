@@ -7,6 +7,7 @@ import LoadMore from './LoadMore';
 import MarvelCard from './MarvelCard';
 import { getFilterData } from './../common/HelperFunctions';
 import SearchInput from './../common/SearchInput';
+import NoResultFound from './../common/NoResultFound';
 
 class Creators extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Creators extends React.Component {
       pageOffset: 0,
       orderBy: 'firstName',
       search: '',
+      loading: true,
     };
   }
 
@@ -27,7 +29,7 @@ class Creators extends React.Component {
   async loadData() {
     const { creators } = this.state;
     const newCreators = await getData(this.state);
-    this.setState({ creators: [...creators, ...newCreators] });
+    this.setState({ creators: [...creators, ...newCreators], loading: false });
   }
 
   handleLoadMore() {
@@ -49,36 +51,38 @@ class Creators extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllcreators({ creators, search, type }) {
+  showAllcreators({ creators, search, type, loading }) {
     creators = getFilterData(creators, 'fullName', search);
     return (
       <div className="container-fluid">
         <div className="row">
-          {creators.length && (
-            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
-              <SearchInput
-                inputValue={search}
-                onClearText={() => this.handleClearInputText()}
-                onSearchInput={(e) => this.handleCharacterSearch(e)}
-                searchOf={type}
-              />
-            </div>
-          )}
-          {creators.length ? (
-            creators.map((creator) => (
-              <div key={creator.id} className="col-sm-12 col-md-3 m-auto">
-                <MarvelCard
-                  cardData={{ ...creator, title: creator.fullName }}
-                />
-              </div>
-            ))
-          ) : (
-            <Loading />
-          )}
+          <SearchInput
+            inputValue={search}
+            onClearText={() => this.handleClearInputText()}
+            onSearchInput={(e) => this.handleCharacterSearch(e)}
+            searchOf={type}
+          />
+
+          {creators.length
+            ? creators.map((creator) => (
+                <div key={creator.id} className="col-sm-12 col-md-3 m-auto">
+                  <MarvelCard
+                    cardData={{ ...creator, title: creator.fullName }}
+                  />
+                </div>
+              ))
+            : ''}
         </div>
-        {creators.length && (
+
+        {!creators.length && loading === false && <NoResultFound type={type} />}
+
+        {creators.length ? (
           <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        ) : (
+          ''
         )}
+
+        {loading && <Loading />}
       </div>
     );
   }

@@ -7,6 +7,7 @@ import getData from './../services/GetData';
 import LoadMore from './LoadMore';
 import { getFilterData } from './../common/HelperFunctions';
 import SearchInput from './../common/SearchInput';
+import NoResultFound from './../common/NoResultFound';
 
 class Series extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ class Series extends React.Component {
       pageOffset: 0,
       orderBy: 'title',
       search: '',
+      loading: true,
     };
   }
 
@@ -27,7 +29,7 @@ class Series extends React.Component {
   async loadData() {
     const { series } = this.state;
     const newSeries = await getData(this.state);
-    this.setState({ series: [...series, ...newSeries] });
+    this.setState({ series: [...series, ...newSeries], loading: false });
   }
   handleLoadMore() {
     const { pageOffset } = this.state;
@@ -47,35 +49,37 @@ class Series extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllSeries({ series, search, type }) {
+  showAllSeries({ series, search, type, loading }) {
     series = getFilterData(series, 'title', search);
 
     return (
       <div className="container-fluid">
         <div className="row">
-          {series.length && (
-            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
-              <SearchInput
-                inputValue={search}
-                onSearchInput={(e) => this.handleCharacterSearch(e)}
-                onClearText={() => this.handleClearInputText()}
-                searchOf={type}
-              />
-            </div>
-          )}
-          {series.length ? (
-            series.map((list) => (
-              <div key={list.id} className="col-sm-12 col-md-3 m-auto">
-                <MarvelCard cardData={{ ...list }} />
-              </div>
-            ))
-          ) : (
-            <Loading />
-          )}
+          <SearchInput
+            inputValue={search}
+            onSearchInput={(e) => this.handleCharacterSearch(e)}
+            onClearText={() => this.handleClearInputText()}
+            searchOf={type}
+          />
+
+          {series.length
+            ? series.map((list) => (
+                <div key={list.id} className="col-sm-12 col-md-3 m-auto">
+                  <MarvelCard cardData={{ ...list }} />
+                </div>
+              ))
+            : ''}
         </div>
-        {series.length && (
+
+        {!series.length && loading === false && <NoResultFound type={type} />}
+
+        {series.length ? (
           <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        ) : (
+          ''
         )}
+
+        {loading && <Loading />}
       </div>
     );
   }
