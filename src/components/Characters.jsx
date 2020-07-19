@@ -1,14 +1,15 @@
 import React from 'react';
-
-import Base from './Base';
-import Loading from './Loading';
 import { Link } from 'react-router-dom';
-import LoadMore from './LoadMore';
-import getData from './../services/GetData';
-import MarvelCard from './MarvelCard';
+
+import Base from './../common/Base';
+import Loading from './../common/Loading';
+import LoadMore from './../common/LoadMore';
+import MarvelCard from './../common/MarvelCard';
 import SearchInput from './../common/SearchInput';
-import { getFilterData } from './../common/HelperFunctions';
 import NoResultFound from './../common/NoResultFound';
+
+import getData from './../services/GetData';
+import { getFilterData } from './../common/HelperFunctions';
 
 class Characters extends React.Component {
   constructor() {
@@ -59,14 +60,12 @@ class Characters extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-
-            <SearchInput
-              inputValue={search}
-              onSearchInput={(e) => this.handleCharacterSearch(e)}
-              onClearText={() => this.handleClearInputText()}
-              searchOf={type}
-            />
-
+          <SearchInput
+            inputValue={search}
+            onSearchInput={(e) => this.handleCharacterSearch(e)}
+            onClearText={() => this.handleClearInputText()}
+            searchOf={type}
+          />
 
           {characters.length
             ? characters.map((character) => (

@@ -1,13 +1,14 @@
 import React from 'react';
 
-import Base from './Base';
-import Loading from './Loading';
-import getData from './../services/GetData';
-import LoadMore from './LoadMore';
-import MarvelCard from './MarvelCard';
-import { getFilterData } from './../common/HelperFunctions';
+import Base from './../common/Base';
+import Loading from './../common/Loading';
+import LoadMore from './../common/LoadMore';
+import MarvelCard from './../common/MarvelCard';
 import SearchInput from './../common/SearchInput';
 import NoResultFound from './../common/NoResultFound';
+import getData from './../services/GetData';
+
+import { getFilterData } from './../common/HelperFunctions';
 
 class Creators extends React.Component {
   constructor() {

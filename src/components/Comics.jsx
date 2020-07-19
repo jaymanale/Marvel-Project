@@ -1,13 +1,14 @@
 import React from 'react';
 
-import Base from './Base';
-import Loading from './Loading';
-import MarvelCard from './MarvelCard';
-import LoadMore from './LoadMore';
-import getData from './../services/GetData';
+import Base from './../common/Base';
+import Loading from './../common/Loading';
+import LoadMore from './../common/LoadMore';
+import MarvelCard from './../common/MarvelCard';
 import SearchInput from './../common/SearchInput';
-import { getFilterData } from './../common/HelperFunctions';
 import NoResultFound from './../common/NoResultFound';
+import getData from './../services/GetData';
+
+import { getFilterData } from './../common/HelperFunctions';
 
 class Comics extends React.Component {
   constructor() {
