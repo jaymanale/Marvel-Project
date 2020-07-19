@@ -5,6 +5,8 @@ import Loading from './Loading';
 import MarvelCard from './MarvelCard';
 import getData from './../services/GetData';
 import LoadMore from './LoadMore';
+import { getFilterData } from './../common/HelperFunctions';
+import SearchInput from './../common/SearchInput';
 
 class Series extends React.Component {
   constructor() {
@@ -14,6 +16,7 @@ class Series extends React.Component {
       type: 'series',
       pageOffset: 0,
       orderBy: 'title',
+      search: '',
     };
   }
 
@@ -36,30 +39,44 @@ class Series extends React.Component {
       this.loadData
     );
   }
+  handleCharacterSearch(event) {
+    this.setState({ search: event.target.value });
+  }
 
-  render() {
-    let { series } = this.state;
+  showAllSeries({ series, search, type }) {
+    series = getFilterData(series, 'title', search);
 
     return (
-      <React.Fragment>
-        <Base>
-          <div className="container-fluid">
-            <div className="row">
-              {series.length ? (
-                series.map((list) => (
-                  <div key={list.id} className="col-sm-12 col-md-3 m-auto">
-                    <MarvelCard cardData={{ ...list }} />
-                  </div>
-                ))
-              ) : (
-                <Loading />
-              )}
+      <div className="container-fluid">
+        <div className="row">
+          {series.length && (
+            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
+              <SearchInput
+                onSearchInput={(e) => this.handleCharacterSearch(e)}
+                searchOf={type}
+              />
             </div>
-            {series.length && (
-              <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
-            )}
-          </div>
-        </Base>
+          )}
+          {series.length ? (
+            series.map((list) => (
+              <div key={list.id} className="col-sm-12 col-md-3 m-auto">
+                <MarvelCard cardData={{ ...list }} />
+              </div>
+            ))
+          ) : (
+            <Loading />
+          )}
+        </div>
+        {series.length && (
+          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+        )}
+      </div>
+    );
+  }
+  render() {
+    return (
+      <React.Fragment>
+        <Base>{this.showAllSeries(this.state)}</Base>
       </React.Fragment>
     );
   }

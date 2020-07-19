@@ -14,7 +14,7 @@ const MarvelCard = (props) => {
             />
           )}
         </div>
-        <h5 className="card-title font-weight-bold">{title}</h5>
+        <h5 className="card-title font-weight-lighter text-dark">{title}</h5>
       </div>
     </div>
   );

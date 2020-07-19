@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import LoadMore from './LoadMore';
 import getData from './../services/GetData';
 import MarvelCard from './MarvelCard';
+import SearchInput from './../common/SearchInput';
+import { getFilterData } from './../common/HelperFunctions';
 
 class Characters extends React.Component {
   constructor() {
@@ -27,11 +29,9 @@ class Characters extends React.Component {
     const { characters } = this.state;
     const newCharacters = await getData(this.state);
     this.setState({ characters: [...characters, ...newCharacters] });
-    console.log('State:', this.state);
   }
 
   handleCharacterSearch(event) {
-    console.log(event.target.value);
     this.setState({ search: event.target.value });
   }
 
@@ -46,27 +46,20 @@ class Characters extends React.Component {
     );
   }
 
-  showAllCharacter({ characters }) {
-    characters = characters.filter((character) => {
-      return (
-        character.name
-          .toLowerCase()
-          .indexOf(this.state.search.toLowerCase()) !== -1
-      );
-    });
+  showAllCharacters({ characters, search, type }) {
+    characters = getFilterData(characters, 'name', search);
 
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              placeholder="Search Characters"
-              className="form-control"
-              aria-label="search character"
-              onChange={(e) => this.handleCharacterSearch(e)}
-            />
-          </div>
+          {characters.length && (
+            <div className="input-group col-md-8 col-lg-8 offset-md-2 offset-lg-2 mb-3">
+              <SearchInput
+                onSearchInput={(e) => this.handleCharacterSearch(e)}
+                searchOf={type}
+              />
+            </div>
+          )}
 
           {characters.length ? (
             characters.map((character) => (
@@ -98,7 +91,7 @@ class Characters extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Base>{this.showAllCharacter({ ...this.state })}</Base>
+        <Base>{this.showAllCharacters({ ...this.state })}</Base>
       </React.Fragment>
     );
   }
