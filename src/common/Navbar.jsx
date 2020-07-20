@@ -7,9 +7,10 @@ const Navbar = () => {
     { to: '/comics', title: 'Comics' },
     { to: '/events', title: 'Events' },
     { to: '/series', title: 'Series' },
-    { to: '/stories', title: 'Stories' },
     { to: '/creators', title: 'Creators' },
   ];
+
+  //{ to: '/stories', title: 'Stories' },
 
   return (
     <React.Fragment>
