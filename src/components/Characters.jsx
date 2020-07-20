@@ -69,7 +69,10 @@ class Characters extends React.Component {
 
           {characters.length
             ? characters.map((character) => (
-                <div className="col-sm-12 col-md-3 m-auto" key={character.id}>
+                <div
+                  className="col-sm-12 col-md-4 col-lg-4  m-auto"
+                  key={character.id}
+                >
                   <Link
                     to={{
                       pathname: `/characters/${character.id}`,

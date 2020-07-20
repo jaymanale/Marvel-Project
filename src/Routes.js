@@ -9,6 +9,7 @@ import Stories from './components/Stories';
 import Comics from './components/Comics';
 import CharacterInfo from './components/CharacterInfo';
 import Creators from './components/Creators';
+import PageNotFound from './common/PageNotFound';
 
 const Routes = () => {
   return (
@@ -26,6 +27,7 @@ const Routes = () => {
         <Route path="/series" exact component={Series}></Route>
         <Route path="/stories" exact component={Stories}></Route>
         <Route path="/creators" exact component={Creators}></Route>
+        <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   );

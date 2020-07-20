@@ -4,7 +4,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <div className="backgroungColorGradiant">
+    <div className="bg-light">
       <Routes></Routes>
     </div>
   );

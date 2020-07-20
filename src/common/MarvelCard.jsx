@@ -3,7 +3,7 @@ import React from 'react';
 const MarvelCard = (props) => {
   const { title, thumbnail } = props.cardData;
   return (
-    <div className="card text-center my-1">
+    <div className="card text-center my-1 cardShadow">
       <div className="card-body">
         <div className="m-2">
           {thumbnail && (

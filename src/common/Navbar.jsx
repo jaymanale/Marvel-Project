@@ -18,14 +18,14 @@ const Navbar = () => {
           className="text-uppercase font-weight-bolder mb-1"
           style={{ fontSize: '30px' }}
         >
-          <Link className=" text-white " to="/">
+          <Link className="textColorGradiant display-4" to="/">
             Marvel
           </Link>
         </div>
         <div className="row">
           {navbar.map((nav) => (
             <span key={nav.to} className="mx-auto">
-              <Link className=" text-white " to={nav.to}>
+              <Link className="textColorGradiant" to={nav.to}>
                 {nav.title}
               </Link>
             </span>
