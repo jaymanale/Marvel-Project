@@ -76,7 +76,7 @@ class Characters extends React.Component {
                   <Link
                     to={{
                       pathname: `/characters/${character.id}`,
-                      state: character,
+                      state: { ...character, title: character.name },
                     }}
                   >
                     <MarvelCard

@@ -9,6 +9,7 @@ import NoResultFound from './../common/NoResultFound';
 import getData from './../services/GetData';
 
 import { getFilterData } from './../common/HelperFunctions';
+import { Link } from 'react-router-dom';
 
 class Comics extends React.Component {
   constructor() {
@@ -66,7 +67,14 @@ class Comics extends React.Component {
           {comics.length
             ? comics.map((comic) => (
                 <div key={comic.id} className="col-sm-12 col-md-3 m-auto">
-                  <MarvelCard cardData={{ ...comic }} />
+                  <Link
+                    to={{
+                      pathname: `/comics/${comic.id}`,
+                      state: comic,
+                    }}
+                  >
+                    <MarvelCard cardData={{ ...comic }} />
+                  </Link>
                 </div>
               ))
             : ''}
