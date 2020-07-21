@@ -7,7 +7,7 @@ import CategoryInfo from './CategoryInfo';
 
 const InformationCard = (props) => {
   console.log('props:', props.location.state);
-
+  window.scrollTo(0, 0);
   return (
     <Base>
       <div className="container">
