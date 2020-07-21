@@ -9,6 +9,7 @@ import NoResultFound from './../common/NoResultFound';
 import getData from './../services/GetData';
 
 import { getFilterData } from './../common/HelperFunctions';
+import { Link } from 'react-router-dom';
 
 class Series extends React.Component {
   constructor() {
@@ -66,7 +67,14 @@ class Series extends React.Component {
           {series.length
             ? series.map((list) => (
                 <div key={list.id} className="col-sm-12 col-md-3 m-auto">
-                  <MarvelCard cardData={{ ...list }} />
+                  <Link
+                    to={{
+                      pathname: `/series/${list.id}`,
+                      state: { ...list },
+                    }}
+                  >
+                    <MarvelCard cardData={{ ...list }} />
+                  </Link>
                 </div>
               ))
             : ''}

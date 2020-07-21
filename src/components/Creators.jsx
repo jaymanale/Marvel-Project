@@ -9,6 +9,7 @@ import NoResultFound from './../common/NoResultFound';
 import getData from './../services/GetData';
 
 import { getFilterData } from './../common/HelperFunctions';
+import { Link } from 'react-router-dom';
 
 class Creators extends React.Component {
   constructor() {
@@ -67,9 +68,16 @@ class Creators extends React.Component {
           {creators.length
             ? creators.map((creator) => (
                 <div key={creator.id} className="col-sm-12 col-md-3 m-auto">
-                  <MarvelCard
-                    cardData={{ ...creator, title: creator.fullName }}
-                  />
+                  <Link
+                    to={{
+                      pathname: `/creators/${creator.id}`,
+                      state: { ...creator, title: creator.fullName },
+                    }}
+                  >
+                    <MarvelCard
+                      cardData={{ ...creator, title: creator.fullName }}
+                    />
+                  </Link>
                 </div>
               ))
             : ''}

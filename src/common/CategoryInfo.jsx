@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CategoryInfo = (props) => {
-  const category = ['comics', 'creators', 'events', 'series', 'stories'];
+  const category = ['characters', 'comics', 'events', 'series', 'creators'];
 
   return (
     <React.Fragment>
@@ -21,7 +21,7 @@ const CategoryDetails = (props) => {
           object[category].items.length ? (
             <div>
               <p className="text-strong mb-0 textColorGradiant">
-                {[category]} - <span>{object[category].available}</span>
+                {[category]} - <span>{object[category].items.length}</span>
               </p>
               <div>
                 <ul className="list-group">

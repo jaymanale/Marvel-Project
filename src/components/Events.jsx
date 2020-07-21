@@ -9,6 +9,7 @@ import NoResultFound from './../common/NoResultFound';
 import getData from './../services/GetData';
 
 import { getFilterData } from './../common/HelperFunctions';
+import { Link } from 'react-router-dom';
 
 class Events extends React.Component {
   constructor() {
@@ -65,7 +66,14 @@ class Events extends React.Component {
           {events.length
             ? events.map((event) => (
                 <div key={event.id} className="col-sm-12 col-md-3 m-auto">
-                  <MarvelCard cardData={{ ...event }} />
+                  <Link
+                    to={{
+                      pathname: `/characters/${event.id}`,
+                      state: { ...event },
+                    }}
+                  >
+                    <MarvelCard cardData={{ ...event }} />
+                  </Link>
                 </div>
               ))
             : ''}

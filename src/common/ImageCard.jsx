@@ -6,7 +6,7 @@ const ImageCard = ({ thumbnail, title }) => {
       {thumbnail && (
         <img
           src={thumbnail.path + '.' + thumbnail.extension}
-          className="card-img-top img-fluid"
+          className="card-img-top img-fluid cardShadow"
           alt={title}
         />
       )}
