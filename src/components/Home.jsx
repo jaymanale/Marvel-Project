@@ -3,6 +3,7 @@ import Base from './../common/Base';
 import { getCharactorById } from './../services/GetData';
 import { Link } from 'react-router-dom';
 import Loading from './../common/Loading';
+import MarvelCard from './../common/MarvelCard';
 
 class Home extends React.Component {
   constructor() {
@@ -42,20 +43,15 @@ class Home extends React.Component {
       <div className="container">
         <div className="row">
           {characterData.map((hero) => (
-            <div
-              key={hero.id}
-              className="col-sm-3 col-md-3 col-lg-3 text-center p-0 cardShadow"
-            >
-              <div className="card-body p-0">
-                <Link
-                  to={{
-                    pathname: `/characters/${hero.id}`,
-                    state: { ...hero, title: hero.name },
-                  }}
-                >
-                  <GetHomeHeroCard {...hero} />
-                </Link>
-              </div>
+            <div className="col-sm-3 col-md-3 col-lg-3  m-auto" key={hero.id}>
+              <Link
+                to={{
+                  pathname: `/characters/${hero.id}`,
+                  state: { ...hero, title: hero.name },
+                }}
+              >
+                <MarvelCard cardData={{ ...hero, title: hero.name }} />
+              </Link>
             </div>
           ))}
         </div>
@@ -68,24 +64,5 @@ class Home extends React.Component {
     return <Base>{loading ? <Loading /> : this.getAllHomeData()}</Base>;
   }
 }
-
-const GetHomeHeroCard = (props) => {
-  const { thumbnail, name } = props;
-
-  return (
-    <React.Fragment>
-      <div>
-        {thumbnail && (
-          <img
-            src={thumbnail.path + '.' + thumbnail.extension}
-            className="card-img-top img-fluid"
-            alt={name}
-          />
-        )}
-      </div>
-      <h5 className="card-title font-weight-lighter text-dark mt-2">{name}</h5>
-    </React.Fragment>
-  );
-};
 
 export default Home;
