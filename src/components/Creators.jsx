@@ -21,6 +21,7 @@ class Creators extends React.Component {
       orderBy: 'firstName',
       search: '',
       loading: true,
+      loadMore: false,
     };
   }
 
@@ -31,7 +32,11 @@ class Creators extends React.Component {
   async loadData() {
     const { creators } = this.state;
     const newCreators = await getData(this.state);
-    this.setState({ creators: [...creators, ...newCreators], loading: false });
+    this.setState({
+      creators: [...creators, ...newCreators],
+      loading: false,
+      loadMore: false,
+    });
   }
 
   handleLoadMore() {
@@ -40,6 +45,7 @@ class Creators extends React.Component {
     this.setState(
       () => ({
         pageOffset: pageOffset + 10,
+        loadMore: true,
       }),
       this.loadData
     );
@@ -53,7 +59,7 @@ class Creators extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllcreators({ creators, search, type, loading }) {
+  showAllcreators({ creators, search, type, loading, loadMore }) {
     creators = getFilterData(creators, 'fullName', search);
     return (
       <div className="container-fluid">
@@ -86,7 +92,10 @@ class Creators extends React.Component {
         {!creators.length && loading === false && <NoResultFound type={type} />}
 
         {creators.length ? (
-          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+          <LoadMore
+            onHandleLoadMore={() => this.handleLoadMore()}
+            loadMore={loadMore}
+          />
         ) : (
           ''
         )}

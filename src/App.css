@@ -20,7 +20,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+.buttonGradiant {
+  background: linear-gradient(to right, #f27121, #e94057, #8a2387);
+}
 .cardShadow {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }

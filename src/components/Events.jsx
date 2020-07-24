@@ -21,6 +21,7 @@ class Events extends React.Component {
       orderBy: 'name',
       search: '',
       loading: true,
+      loadMore: false,
     };
   }
 
@@ -30,7 +31,11 @@ class Events extends React.Component {
   async loadData() {
     const { events } = this.state;
     const newEvents = await getData(this.state);
-    this.setState({ events: [...events, ...newEvents], loading: false });
+    this.setState({
+      events: [...events, ...newEvents],
+      loading: false,
+      loadMore: false,
+    });
   }
   handleLoadMore() {
     const { pageOffset } = this.state;
@@ -38,6 +43,7 @@ class Events extends React.Component {
     this.setState(
       () => ({
         pageOffset: pageOffset + 10,
+        loadMore: true,
       }),
       this.loadData
     );
@@ -50,7 +56,7 @@ class Events extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllComics({ events, search, type, loading }) {
+  showAllComics({ events, search, type, loading, loadMore }) {
     events = getFilterData(events, 'title', search);
 
     return (
@@ -82,7 +88,10 @@ class Events extends React.Component {
         {!events.length && loading === false && <NoResultFound type={type} />}
 
         {events.length ? (
-          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+          <LoadMore
+            onHandleLoadMore={() => this.handleLoadMore()}
+            loadMore={loadMore}
+          />
         ) : (
           ''
         )}

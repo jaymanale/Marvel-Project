@@ -21,6 +21,7 @@ class Characters extends React.Component {
       pageOffset: 0,
       orderBy: 'name',
       loading: true,
+      loadMore: false,
     };
   }
 
@@ -34,6 +35,7 @@ class Characters extends React.Component {
     this.setState({
       characters: [...characters, ...newCharacters],
       loading: false,
+      loadMore: false,
     });
   }
 
@@ -47,6 +49,7 @@ class Characters extends React.Component {
     this.setState(
       () => ({
         pageOffset: pageOffset + 10,
+        loadMore: true,
       }),
       this.loadData
     );
@@ -54,7 +57,7 @@ class Characters extends React.Component {
   handleClearInputText() {
     this.setState({ search: '' });
   }
-  showAllCharacters({ characters, search, type, loading }) {
+  showAllCharacters({ characters, search, type, loading, loadMore }) {
     characters = getFilterData(characters, 'name', search);
 
     return (
@@ -92,7 +95,10 @@ class Characters extends React.Component {
         )}
 
         {characters.length ? (
-          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+          <LoadMore
+            onHandleLoadMore={() => this.handleLoadMore()}
+            loadMore={loadMore}
+          />
         ) : (
           ''
         )}

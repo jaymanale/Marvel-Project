@@ -21,6 +21,7 @@ class Comics extends React.Component {
       orderBy: 'title',
       search: '',
       loading: true,
+      loadMore: false,
     };
   }
 
@@ -31,7 +32,11 @@ class Comics extends React.Component {
   async loadData() {
     const { comics } = this.state;
     const newComics = await getData(this.state);
-    this.setState({ comics: [...comics, ...newComics], loading: false });
+    this.setState({
+      comics: [...comics, ...newComics],
+      loading: false,
+      loadMore: false,
+    });
   }
 
   handleLoadMore() {
@@ -40,6 +45,7 @@ class Comics extends React.Component {
     this.setState(
       () => ({
         pageOffset: pageOffset + 10,
+        loadMore: true,
       }),
       this.loadData
     );
@@ -52,7 +58,7 @@ class Comics extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllComics({ comics, search, type, loading }) {
+  showAllComics({ comics, search, type, loading, loadMore }) {
     comics = getFilterData(comics, 'title', search);
     return (
       <div className="container-fluid">
@@ -83,7 +89,10 @@ class Comics extends React.Component {
         {!comics.length && loading === false && <NoResultFound type={type} />}
 
         {comics.length ? (
-          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+          <LoadMore
+            onHandleLoadMore={() => this.handleLoadMore()}
+            loadMore={loadMore}
+          />
         ) : (
           ''
         )}

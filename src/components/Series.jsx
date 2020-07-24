@@ -21,6 +21,7 @@ class Series extends React.Component {
       orderBy: 'title',
       search: '',
       loading: true,
+      loadMore: false,
     };
   }
 
@@ -31,7 +32,11 @@ class Series extends React.Component {
   async loadData() {
     const { series } = this.state;
     const newSeries = await getData(this.state);
-    this.setState({ series: [...series, ...newSeries], loading: false });
+    this.setState({
+      series: [...series, ...newSeries],
+      loading: false,
+      loadMore: false,
+    });
   }
   handleLoadMore() {
     const { pageOffset } = this.state;
@@ -39,6 +44,7 @@ class Series extends React.Component {
     this.setState(
       () => ({
         pageOffset: pageOffset + 10,
+        loadMore: true,
       }),
       this.loadData
     );
@@ -51,7 +57,7 @@ class Series extends React.Component {
     this.setState({ search: '' });
   }
 
-  showAllSeries({ series, search, type, loading }) {
+  showAllSeries({ series, search, type, loading, loadMore }) {
     series = getFilterData(series, 'title', search);
 
     return (
@@ -83,7 +89,10 @@ class Series extends React.Component {
         {!series.length && loading === false && <NoResultFound type={type} />}
 
         {series.length ? (
-          <LoadMore onHandleLoadMore={() => this.handleLoadMore()} />
+          <LoadMore
+            onHandleLoadMore={() => this.handleLoadMore()}
+            loadMore={loadMore}
+          />
         ) : (
           ''
         )}
