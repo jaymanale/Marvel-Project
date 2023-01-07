@@ -1,47 +1,69 @@
- <h1 align="center">Welcome to Marvel Universe 👋</h1>
+<h1 align="center">Welcome to Marvel Universe 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://twitter.com/JayManale" target="_blank">
-    <img alt="Twitter: JayManale" src="https://img.shields.io/twitter/follow/JayManale.svg?style=social" />
-  </a>
-  <img alt="Github: JayManale" src="https://img.shields.io/github/last-commit/jaymanale/Marvel-Project" />
+  <img alt="Github: JayManale" src="https://img.shields.io/github/last-commit/jaymanale/covid-19-report" />
 </p>
 
-> Simple application where you can finr Marvel universe details such as Characters, Stories, Comics etc. Build with ReactJs
+ 
 
-### ✨ [Demo](https://marvel-universe.netlify.app/)
+## Marvel Universe 🌐
 
-## Install
+Let go to [Marvel Universe](https://marvel-universe.netlify.app/) 👉
 
-```sh
-npm install
+![marvel gif](https://user-images.githubusercontent.com/5653906/211147854-39339bc7-ffc7-4ba5-83ac-5e3d40e7df4a.gif)
+
+
+## Run Locally 🖥️
+
+Clone the project
+
+```bash
+  git clone https://github.com/jaymanale/Marvel-Project.git
 ```
 
-## Usage
+Go to the project directory
 
-```sh
-npm start
+```bash
+  cd Marvel-Project
 ```
 
-## Run tests
+Install dependencies
 
-```sh
-npm test
+```bash
+  npm install
 ```
+
+Start the server
+
+```bash
+  npm start
+```
+
+
+## Screenshots 📸
+
+<img width="960" alt="characters" src="https://user-images.githubusercontent.com/5653906/211146939-2a5bb1f3-2bf2-4f61-a30e-65fc2466e661.png">
+
+<img width="960" alt="comic" src="https://user-images.githubusercontent.com/5653906/211146940-55796728-19e9-4973-9967-cef2baf464bd.png">
+
+<img width="960" alt="homePage" src="https://user-images.githubusercontent.com/5653906/211146942-e74fa758-c471-482c-8216-56839ff7a49b.png">
+
 
 ## Author
 
-:man: **Jayram Manale**
+**Jayram Manale** 🧑‍💻
 
-- Website: www.jayrammanale.com
-- Twitter: [@JayManale](https://twitter.com/JayManale)
-- Github: [@jaymanale](https://github.com/jaymanale)
-- LinkedIn: [@jaymanale](https://linkedin.com/in/jayram-manale)
+- [Website](https://www.jayrammanale.com/)
+- [Twitter](https://twitter.com/JayManale)
+- [Github](https://github.com/jaymanale)
+- [LinkedIn](https://linkedin.com/in/jayram-manale)
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
+## Feedback
 
----
+If you have any feedback, please reach out at jaymanale29@gmail.com
 
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
+
